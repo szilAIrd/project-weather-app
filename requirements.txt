@@ -1,0 +1,1 @@
+1. User should be able to give a location and expect a weather data in return
