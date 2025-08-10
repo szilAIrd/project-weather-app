@@ -19,3 +19,18 @@ body{
 #location::placeholder {
     color: white;
 }
+
+#main-content{
+    display: grid;
+    grid-template-columns: repeat(7,200px);
+    grid-template-rows: 0.3fr 0.4fr 0.3fr;
+    align-content: center;
+    margin-left: 200px;
+}
+
+.forecast-element{
+    height: 300px;
+    grid-row: 2;
+    background-color: rgb(228, 228, 228);
+
+}

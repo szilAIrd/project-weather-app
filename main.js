@@ -26,13 +26,41 @@ class DOM {
         inputLocation.style.borderRadius = '24px'
         inputLocation.style.backgroundColor = 'rgb(211, 211, 211)'
         inputLocation.id = 'location'
-
-        
+        inputLocation.addEventListener('keydown',async (e)=>{
+            if (e.key === 'Enter') {
+            let inputLocation = document.getElementById('location')
+            let forecastData = await getData(inputLocation.value)
+            let todaysForecast = forecastData.days[0]
+            this.renderDailyForecast(todaysForecast)
+            
+            }
+            })
         // Append elements to body
         mainContent.appendChild(inputLocation)
         body.appendChild(mainContent)
+    }
+    
+    clearMainContent(){
+        let mainContent = document.getElementById('main-content')
+        mainContent.replaceChildren()
+    }
 
-}}
+    renderDailyForecast(forecast){
+        
+        let mainContent = document.getElementById('main-content')
+        
+        let forecastElement = document.createElement('div')
+        forecastElement.textContent = forecast.tempmax
+        forecastElement.className = 'forecast-element'
+
+        this.clearMainContent()
+        mainContent.appendChild(forecastElement)
+
+
+
+
+    }
+}
 
 
 let weatherPage = new DOM()
@@ -42,11 +70,10 @@ weatherPage.initPage()
 // Functions
 const apiKey=''
 
-async function getData(){
-    let response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?key=',{mode: 'cors'})
+async function getData(location){
+    let response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=`,{mode: 'cors'})
     let data = await response.json()
     console.log(response)
     console.log(data)
+    return data
 }
-
-getData()
